@@ -65,7 +65,7 @@ end
 def print(students)
   i = 0
   while i <= students.length-1
-    puts "#{students[i][:name]}, from #{students[i][:country]}. Hobbies: #{students[i][:hobbies]}. Height: #{students[i][:height]}. (#{students[i][:cohort].capitalize} cohort)"
+    puts " #{students[i][:name]}, from #{students[i][:country]}. Hobbies: #{students[i][:hobbies]}. Height: #{students[i][:height]}. (#{students[i][:cohort].capitalize} cohort) ".center(120, '*')
     i += 1
   end
 end
