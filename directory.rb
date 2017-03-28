@@ -1,22 +1,20 @@
 def input_students
+  puts "Welcome to the Student Directory".center(80)
   puts "Please fill in the form for each student."
-  puts "To finish, please type in 'done' when asked for NAME & COHORT."
   puts
   students = []
   default = "TBD"
   answer = ""
-
-name = ""
+  name = ""
     while name != "done" do
-      puts "NAME & COHORT - please insert a dot between the two, (e.g. John Doe. November) or type in 'done.' to finish."
-      name, cohort = gets.split('.')
-      break if name == "done"
-      name.to_s
+      puts "NAME & COHORT - please insert a semicolon between the two (e.g. John Doe; November)."
+      name, cohort = gets.chomp.split(';')
+
         if cohort == nil
           cohort = default
           cohort_sym = cohort.to_sym
         end
-      cohort_sym = cohort.downcase.to_sym
+      cohort_sym = cohort.to_sym
       puts "COUNTRY OF BIRTH"
       country = gets.chomp
       puts "HOBBIES"
@@ -30,7 +28,9 @@ name = ""
         else
       students << {name: name, cohort: cohort_sym, hobbies: hobbies, country: country, height: height}
       puts "Now we have #{students.count} students"
-      puts
+      puts "Press RETURN to continue adding students, or type in 'done' to finish."
+      choice = gets.chomp
+      break if choice == "done"
       #puts cohort_sym.is_a? Symbol
         next
     end
@@ -41,7 +41,8 @@ students
 end
 
 def print_header
-  puts "The students of Villains Academy"
+  puts
+  puts "The students of Villains Academy:"
   puts "-------------"
 end
 =begin
@@ -57,7 +58,7 @@ end
 def print(students)
   i = 0
   while i <= students.length-1
-    puts " #{students[i][:name].capitalize}, from #{students[i][:country].capitalize}. Hobbies: #{students[i][:hobbies]}. Height: #{students[i][:height]}. (Cohort:#{students[i][:cohort].upcase}) ".center(120, '*')
+    puts " #{students[i][:name]}, from #{students[i][:country]}. Hobbies: #{students[i][:hobbies]}. Height: #{students[i][:height]}. (Cohort: #{students[i][:cohort].upcase}) ".center(100, '*')
     i += 1
   end
 end
