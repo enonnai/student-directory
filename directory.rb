@@ -14,12 +14,14 @@ def input_students
         end
       cohort = cohort.to_sym
       puts "COUNTRY OF BIRTH"
-      country = gets.chomp
+      # Solution to Step 8: Exercise 10
+      country = gets
+      country = country.gsub("\n", "")
       puts "HOBBIES"
       hobbies = gets.chomp
       puts "HEIGHT"
       height = gets.chomp
-      puts "You entered NAME: #{name}, COHORT: #{cohort}, COUNTRY OF BIRTH: #{country}, HOBBIES: #{hobbies}, HEIGHT: #{height}.\nDo you want to submit? Enter 'y' to submit or 'n' to fill in the info again."
+      puts "> You entered NAME: #{name}, COHORT: #{cohort}, COUNTRY OF BIRTH: #{country}, HOBBIES: #{hobbies}, HEIGHT: #{height}.\nDo you want to submit? Enter 'y' to submit or 'n' to fill in the info again."
       answer = gets.chomp
         if answer == "n"
           next
@@ -78,7 +80,7 @@ def print_footer(names)
   if names.count == 0
     puts "We have no students."
   elsif names.count == 1
-    puts "Overall, we have 1 great student.\nNB: 'TBD' stands for 'To Be Determined'"
+    puts "Overall, we have 1 great student.\nNB: git'TBD' stands for 'To Be Determined'"
   else
     puts "Overall, we have #{names.count} great students.\nNB: 'TBD' stands for 'To Be Determined'"
   end
