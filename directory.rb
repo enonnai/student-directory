@@ -7,68 +7,85 @@ def input_students
   answer = ""
   name = ""
     while name != "done" do
-      puts "NAME & COHORT - please insert a semicolon between the two (e.g. John Doe; November)."
+      puts "NAME & COHORT - please insert a semicolon between the two (e.g. John Doe;November)."
       name, cohort = gets.chomp.split(';')
-
         if cohort == nil
           cohort = default
-          cohort_sym = cohort.to_sym
         end
-      cohort_sym = cohort.to_sym
+      cohort = cohort.to_sym
       puts "COUNTRY OF BIRTH"
       country = gets.chomp
       puts "HOBBIES"
       hobbies = gets.chomp
       puts "HEIGHT"
       height = gets.chomp
-      puts "Are you happy to submit? Type in 'yes' or 'no' to fill in the info again."
+      puts "You entered NAME: #{name}, COHORT: #{cohort}, COUNTRY OF BIRTH: #{country}, HOBBIES: #{hobbies}, HEIGHT: #{height}.\nDo you want to submit? Enter 'y' to submit or 'n' to fill in the info again."
       answer = gets.chomp
-        if answer == "no"
+        if answer == "n"
           next
         else
-      students << {name: name, cohort: cohort_sym, hobbies: hobbies, country: country, height: height}
-      puts "Now we have #{students.count} students"
-      puts "Press RETURN to continue adding students, or type in 'done' to finish."
-      choice = gets.chomp
-      break if choice == "done"
-      #puts cohort_sym.is_a? Symbol
-        next
-    end
-      #get another username from the user
-    end
-#return the array of students
-students
-end
+      students << {name: name, cohort: cohort, hobbies: hobbies, country: country, height: height}
+        if students.count == 1
+          puts "Now we have #{students.count} student."
+        else
+          puts "Now we have #{students.count} students."
+        end
+       puts "Press RETURN to continue adding students, or type in 'done' to finish."
+       choice = gets.chomp
+        break if choice == "done"
+          next
+        end
+      end
+      students
+  end
 
 def print_header
   puts
-  puts "The students of Villains Academy:"
+  puts "The students of Villains Academy sorted by cohorts:"
   puts "-------------"
 end
-=begin
-def print(students)
-  students.each_with_index do |student, index|
-    #if student[:name].start_with? "D"
-    if student[:name].length < 12
-     puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+
+def print_students(students)
+  cohorts = students.map {|x| x[:cohort]}.uniq
+  cohorts.each do |cohort|
+    i = 0
+    while i <= students.length-1 do
+        if students[i].has_value? cohort
+         puts " #{students[i][:name]}, from #{students[i][:country]}. Hobbies: #{students[i][:hobbies]}. Height: #{students[i][:height]}. (Cohort: #{students[i][:cohort].upcase}) ".center(120, '*')
+         i += 1
+          next
+        else
+          i+= 1
+          next
+        end
     end
-  end
-end
-=end
-def print(students)
-  i = 0
-  while i <= students.length-1
-    puts " #{students[i][:name]}, from #{students[i][:country]}. Hobbies: #{students[i][:hobbies]}. Height: #{students[i][:height]}. (Cohort: #{students[i][:cohort].upcase}) ".center(100, '*')
-    i += 1
-  end
-end
+   end
+ end
+
+ def print_cohort(students)
+   puts
+   puts "Which students' cohort would you like to visualise? Type in a month or TBD."
+   month = gets.chomp.to_sym
+   students.each do |student|
+     if student[:cohort] == month
+       puts " #{student[:name]}, from #{student[:country]}. Hobbies: #{student[:hobbies]}. Height: #{student[:height]}. (Cohort: #{student[:cohort].upcase}) ".center(120, '*')
+     end
+   end
+ end
 
 def print_footer(names)
   puts "-------------"
-  puts "Overall, we have #{names.count} great students.\n\nNB: 'TBD' stands for 'To Be Determined'"
+  if names.count == 0
+    puts "We have no students."
+  elsif names.count == 1
+    puts "Overall, we have 1 great student.\nNB: 'TBD' stands for 'To Be Determined'"
+  else
+    puts "Overall, we have #{names.count} great students.\nNB: 'TBD' stands for 'To Be Determined'"
+  end
 end
-#nothing happens until we call the methods
+
 students = input_students
 print_header
-print(students)
+print_students(students)
 print_footer(students)
+print_cohort(students)
