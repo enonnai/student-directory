@@ -1,6 +1,7 @@
 @students = []
 
 def print_menu
+  puts "-------------"
   puts "1. Input the students"
   puts "2. Show the students"
   puts "3. Save the list to students.csv"
@@ -22,10 +23,13 @@ def process(selection)
   when "2"
     show_students
   when "3"
+    puts "The list has been saved to students.csv"
     save_students
   when "4"
+    puts "The list from students.csv has been loaded"
     load_students
   when "9"
+    puts "You have correctly exited the program. Goodbye!"
     exit
   else
     puts "I don't know what you meant, try again"
