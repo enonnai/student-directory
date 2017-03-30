@@ -32,9 +32,9 @@ def process(selection)
   end
 end
 
+
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
+  puts "Please enter the names of the students\nTo finish, just hit return twice"
   name = STDIN.gets.chomp
   while !name.empty? do
     add_to_array(name)
@@ -59,14 +59,11 @@ def print_header
 end
 
 def print_student_list
-  @students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
-  end
+  @students.each {|student| puts "#{student[:name]} (#{student[:cohort]} cohort)"}
 end
 
 def print_footer
-  puts "-------------"
-  puts "Overall, we have #{@students.count} great students"
+  puts "-------------\nOverall, we have #{@students.count} great students"
 end
 
 def save_students
@@ -88,11 +85,9 @@ def load_students(filename = "students.csv")
   file.close
 end
 
-def try_load_students
+def load_with_file
   filename = ARGV.first
-  if filename.nil?
-    filename = "students.csv"
-  end
+    filename = "students.csv" if filename.nil?
   if File.exists?(filename)
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
@@ -102,5 +97,5 @@ def try_load_students
   end
 end
 
-try_load_students
+load_with_file
 interactive_menu
