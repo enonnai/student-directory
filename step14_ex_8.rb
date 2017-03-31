@@ -39,7 +39,7 @@ class Person
   attr_accessor :name, :surname, :profession
 
   def speak
-    puts "\n> SOLUTION: 'I\'m #{@name} #{@surname} and I'm a mighty #{@profession}'!"
+    puts "\n> SOLUTION: 'My name is #{@name} #{@surname}, and I'm a mighty #{@profession}!'"
   end
 end
 
