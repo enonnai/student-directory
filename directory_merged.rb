@@ -7,9 +7,9 @@ def print_menu
   puts "2. Show the students"
   puts "3. Save the list to a file"
   puts "4. Load the list from a file"
-  puts "5. Print the students sorted by cohort"
+  puts "5. Print all the students sorted by monthly cohort"
   puts "6. Print the students from a specific cohort"
-  puts "9. Exit"
+  puts "7. Exit"
 end
 
 def interactive_menu
@@ -33,11 +33,11 @@ def process(selection)
     print_by_cohort
   when "6"
     print_cohort
-  when "9"
+  when "7"
     puts "You have correctly exited the program. Goodbye!"
     exit
   else
-    puts "I don't know what you meant, try again"
+    puts "I don't know what you mean, please try again."
   end
 end
 
@@ -64,7 +64,7 @@ def input_students
         if answer == "n"
           next
         else
-      @students << {name: name, cohort: cohort, hobbies: hobbies, country: country, height: height}
+      add_to_array
         if @students.count == 1
           puts "Now we have #{@students.count} student."
         else
@@ -79,7 +79,7 @@ def input_students
       @students
   end
 
-def add_to_array(name)
+def add_to_array
 @students << {name: name, cohort: cohort, hobbies: hobbies, country: country, height: height}
 end
 
@@ -99,7 +99,7 @@ end
 def print_by_cohort
   puts "The students of Villains Academy sorted by cohorts:"
   puts "-------------"
-  cohorts = @students.map {|x| x[:cohort]}.uniq
+  cohorts = @students.map {|x| x[:cohort]}.uniq.sort
   cohorts.each do |cohort|
     students_in_cohort = @students.select {|x| x.has_value? cohort }
       students_in_cohort.each do |student|
@@ -109,14 +109,10 @@ def print_by_cohort
 end
 
 def print_cohort
-  puts
-  puts "Which students' cohort would you like to visualise? Type in a month or TBD."
-  month = STDIN.gets.chomp.to_sym
-  @students.each do |student|
-    if student[:cohort] == month
-      puts " #{student[:name]}, from #{student[:country]}. Hobbies: #{student[:hobbies]}. Height: #{student[:height]}. (Cohort: #{student[:cohort].upcase}) ".center(120, '*')
-    end
-  end
+  month = ""
+  puts "\nWhich students' cohort would you like to visualise? Type in a month or TBD."
+  month = gets.chomp.to_sym
+    @students.each {|student| puts " #{student[:name]}, from #{student[:country]}. Hobbies: #{student[:hobbies]}. Height: #{student[:height]}. (Cohort: #{student[:cohort].upcase}) ".center(120, '*') if student[:cohort] == month}
 end
 
 def print_footer
