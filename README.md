@@ -12,8 +12,5 @@ Please install Ruby to run this. Click on [Ruby's installation page](https://www
 
 ## How to use ##
 
-Run 
-```shell
-ruby.directory.rb
-```.
+Run `ruby.directory.rb`.
 Please run the *'directory_merged.rb'* file to review all of my code for the directory. Thanks!
